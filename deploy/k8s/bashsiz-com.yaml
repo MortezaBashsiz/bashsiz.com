@@ -1,0 +1,113 @@
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production-bashsiz-com
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bashsiz-com
+  namespace: production-bashsiz-com
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: bashsiz-com
+  template:
+    metadata:
+      labels:
+        app: bashsiz-com
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: bashsiz-com
+          image: docker.io/netsudoer/production-bashsiz-com:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: bashsiz-com
+  namespace: production-bashsiz-com
+spec:
+  selector:
+    app: bashsiz-com
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/tls-acme: 'true'
+    # www.bashsiz.com -> bashsiz.com
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+  name: bashsiz.com
+  namespace: production-bashsiz-com
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - bashsiz.com
+      - www.bashsiz.com
+    secretName: tls-bashsiz.com
+  rules:
+  - host: bashsiz.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bashsiz-com
+            port:
+              number: 80

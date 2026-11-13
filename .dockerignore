@@ -1,0 +1,6 @@
+.git
+.github
+deploy/k8s
+README.md
+Dockerfile
+.dockerignore
