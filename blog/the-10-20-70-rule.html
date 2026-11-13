@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Choosing the Right Tool: The 10/20/70 Rule — Morteza Bashsiz</title>
+  <meta name="description" content="Knowing tools, choosing the right one, and using it well — a simple ratio for getting things done, with examples from Linux and everyday life.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='%2318181b'/><text x='32' y='41' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='600' font-size='24' fill='white'>MB</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>
+    // Theme: ?theme= from the link that opened this page → saved choice → system setting.
+    (function () {
+      var t, u = new URL(location.href), q = u.searchParams.get("theme");
+      if (q === "dark" || q === "light") {
+        t = q;
+        try { localStorage.setItem("theme", t); } catch (e) {}
+        u.searchParams.delete("theme");
+        try { history.replaceState(null, "", u.href); } catch (e) {}
+      }
+      if (!t) try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="avatar" href="../index.html" aria-label="Home"><img src="../assets/img/morteza-160.jpg" alt="Morteza Bashsiz" width="44" height="44"></a>
+      <nav class="nav" aria-label="Main">
+        <a href="../index.html">Home</a>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <a href="../github.html">Projects</a>
+        <a href="../youtube.html">Videos</a>
+        <a href="../sudoer.html">Sudoer</a>
+        <a href="../about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="wrap">
+
+    <article class="post">
+      <a class="back" href="../blog.html">← All posts</a>
+      <h1>Choosing the Right Tool: The 10/20/70 Rule</h1>
+      <p class="post-meta"><time datetime="2026-11-13">November 13, 2026</time> · 8 min read</p>
+
+      <div class="prose">
+        <p class="lead">Whenever we want to get something done, one of the challenges we face is choosing the right tool for the job.</p>
+        <p>For example, we obviously use a spoon to eat soup, or a calculator to perform arithmetic. But what about eating pasta?</p>
+        <p>Have you ever hesitated between using a spoon, a fork, or chopsticks? Have you ever considered the shape and type of pasta before deciding which utensil to use?</p>
+        <p>At the end of the day, you can eat pasta with any of these three utensils, or even without any of them. What really matters is choosing the most suitable tool for the situation.</p>
+        <p>In this article, I'd like to introduce a simple ratio that might help you choose and use tools more effectively in your everyday tasks.</p>
+
+        <h2>Let's Start with Some Examples from My Work</h2>
+        <p>To make this idea easier to understand, I'd like to share a few examples from my own field.</p>
+        <p>In IT, especially when working with Linux, there are usually several different tools that can help you accomplish the same task.</p>
+        <p>For example, if you want to check the number of open connections on a Linux system, there are multiple ways to do it. Naturally, you might wonder: <em>Which tool should I use? Which one is the most appropriate?</em></p>
+        <p>Before going any further, though, there's something important I'd like to point out.</p>
+
+        <h2>Everyone Has Their Own Handwriting</h2>
+        <p>The way people work with tools is a lot like handwriting. Everyone has their own style.</p>
+        <p>Think about playing the violin. Different musicians hold the bow differently, and even the way they position the violin under their chin can vary from person to person.</p>
+        <p>Everyone has their own handwriting, and you can't judge someone's spelling by the way they shape their letters.</p>
+        <p>That's why my first recommendation is this:</p>
+        <blockquote>When you're watching someone work, don't tell them exactly how to hold the screwdriver. Tell them what needs to be done.</blockquote>
+        <p>Ask them to tighten a screw, check CPU usage, measure disk IOPS, wash the dishes, or clean the car. Then let them approach the task in their own way, using their own style.</p>
+        <p>Of course, someone might know a technique that allows them to complete the task faster or more efficiently. And that technique usually comes from one thing: <strong>EXPERIENCE</strong>.</p>
+        <p>For example, I've washed plenty of dishes in my life. As a result, I might know how to wash them faster while using less water.</p>
+        <p>Now, if your goal is to teach someone how to wash dishes efficiently, that's a different story. In that case, find an appropriate opportunity to demonstrate your technique through practical work.</p>
+        <p>Let people observe your handwriting while you write and your techniques while you work.</p>
+        <p>Show them how your approach can help them achieve the same result more quickly and easily.</p>
+        <p>But don't confuse your preferred way of doing something with the only correct way.</p>
+
+        <h2>The 10/20/70 Rule</h2>
+        <p>Now, back to the main topic.</p>
+        <p>If I had to express the importance of knowing, choosing, and using tools as a simple ratio out of 100, it would look like this:</p>
+        <div class="ratio">
+          <div class="ratio-row"><span class="ratio-num">10%</span><span>Knowing that tools exist.</span></div>
+          <div class="ratio-row"><span class="ratio-num">20%</span><span>Being able to choose the right tool.</span></div>
+          <div class="ratio-row"><span class="ratio-num">70%</span><span>Being able to use the chosen tool effectively.</span></div>
+        </div>
+        <p>Let me explain what I mean.</p>
+
+        <h2>10% — Knowing That Tools Exist</h2>
+        <p>If you simply know that a particular tool exists, you've already achieved the first 10%.</p>
+        <p>For example, knowing that screwdrivers exist is important. Similarly, knowing that certain Linux utilities can display RAM usage is valuable.</p>
+        <p>Don't misunderstand the relatively small percentage here. I'm not saying this knowledge is unimportant.</p>
+        <p>Quite the opposite.</p>
+        <p>In my opinion, simply being aware of the available tools is often enough to get started. You can learn the rest by reading their documentation whenever you need them.</p>
+        <p>You don't have to memorize every command, option, or feature.</p>
+        <p>You just need to know what's available.</p>
+
+        <h2>20% — Choosing the Right Tool</h2>
+        <p>Now that you know which tools exist, the next step is choosing the most appropriate one.</p>
+        <p>This requires some familiarity with the available options, along with a certain amount of experience.</p>
+        <p>For example, when I want to inspect RAM usage on Linux, I know I can use tools such as:</p>
+        <p><code>top</code>, <code>htop</code>, <code>sar</code>, <code>vmstat</code>, <code>free</code>, <code>/proc</code>, and several others.</p>
+        <p>But which one should I choose?</p>
+        <p>The answer depends entirely on what I need and the environment I'm working in.</p>
+        <p>Maybe I only want to see buffer, cache, and available memory.</p>
+        <p>Maybe I need a single percentage.</p>
+        <p>Maybe I need precise values in bytes.</p>
+        <p>Or perhaps I'm investigating memory usage over time.</p>
+        <p>Each situation might call for a different tool.</p>
+        <p>This is where choosing appropriately makes a real difference.</p>
+        <p>Let's go back to our pasta example.</p>
+        <p>If my goal is to eat as quickly as possible and I'm having shell-shaped pasta, I'd probably choose a spoon.</p>
+        <p>But if I'm eating spaghetti with the same goal in mind, a fork might be a much better choice.</p>
+        <blockquote>The best tool isn't necessarily the most powerful or sophisticated one. It's the one that best fits your needs and circumstances.</blockquote>
+
+        <h2>70% — Using the Tool Effectively</h2>
+        <p>This is where things get interesting.</p>
+        <p>Once you've chosen a tool, you need to know how to make the best use of it.</p>
+        <p>I give this part the largest percentage because, in my opinion, it's where experience matters most.</p>
+        <p>You might not know that many other tools exist.</p>
+        <p>You might not even be aware of all the alternatives that could accomplish the same task.</p>
+        <p>Perhaps you only know one tool for a particular job.</p>
+        <p>But with enough experience and your own way of working, you might be able to use that single tool more effectively than someone who knows ten alternatives.</p>
+        <p>For example, you might finish a plate of shell-shaped pasta with a fork faster than I can finish mine with a spoon.</p>
+        <p>Or perhaps <code>vmstat</code> is the only Linux memory-monitoring utility you know, but you're so familiar with it that you can quickly get everything you need.</p>
+        <p>That's the value of practical experience.</p>
+        <p>Knowing more tools doesn't automatically make someone better at getting things done.</p>
+
+        <h2>A Story from My University Days</h2>
+        <p>While I was a university student, I worked for a while at a glass manufacturing factory.</p>
+        <p>There was an engineer there whose English knowledge was absolutely remarkable.</p>
+        <p>You could ask him about almost any English word, grammar rule, or expression, and he would know the answer.</p>
+        <p>We used to call him <em>the walking dictionary</em>.</p>
+        <p>But here's the interesting part.</p>
+        <p>Despite his impressive knowledge of English, whenever foreign technicians visited the factory, he struggled to communicate with them in English.</p>
+        <p>Instead of speaking directly, he would write down what he wanted to say on a piece of paper and show it to them.</p>
+        <p>He had the tool.</p>
+        <p>He understood the tool extremely well.</p>
+        <p>But when it came to using it in a real-world situation, he couldn't put that knowledge into practice effectively.</p>
+        <p>And that's exactly what experience is about.</p>
+        <p>You have to actually do something to become good at doing it.</p>
+
+        <h3>Another Example from Linux</h3>
+        <p>Imagine you're working on a Linux machine that has no internet connection.</p>
+        <p>You need to check whether a particular TCP port on another IP address is reachable.</p>
+        <p>Unfortunately, the <code>telnet</code> utility isn't installed.</p>
+        <p>What do you do?</p>
+        <p>Well, a simple internet search for <em>"telnet without telnet"</em> — from another device with internet access, of course — can help you discover alternative approaches.</p>
+        <p>The point isn't that you should memorize every possible way to test a TCP connection.</p>
+        <p>The point is that understanding what tools and capabilities are available allows you to adapt when your usual approach isn't an option.</p>
+        <p>And with enough experience, finding these alternatives becomes increasingly natural.</p>
+
+        <h2>You Don't Need to Know Everything</h2>
+        <p>We don't need to know every tool.</p>
+        <p>There's absolutely nothing wrong with someone who has ten years of professional experience not knowing what a particular command-line option does.</p>
+        <p>They can simply read the manual or look it up.</p>
+        <p>Very often, knowing that a tool exists is all you need.</p>
+        <p>You can learn how to use it when the situation calls for it.</p>
+        <p>Over time, all those small moments of reading, experimenting, and solving problems accumulate.</p>
+        <p>And eventually, they turn into something much more valuable than memorized knowledge:</p>
+        <p><strong>The ability to use tools confidently, creatively, and effectively.</strong></p>
+        <p>Of course, you could argue that all three parts — awareness, selection, and effective usage — are equally important.</p>
+        <p>And you wouldn't necessarily be wrong.</p>
+        <p>The 10/20/70 ratio isn't a scientific formula. It's simply a way of expressing how I personally see the relationship between knowing tools and actually getting things done.</p>
+        <p>After all, tools exist to make our work easier and help us reach our goals.</p>
+        <p>They aren't the goal themselves.</p>
+
+        <h2>Conclusion</h2>
+        <p>Don't overwhelm yourself by trying to master every detail of every tool.</p>
+        <p>Explore the tools available to you.</p>
+        <p>Learn what they are designed to do.</p>
+        <p>Understand, at least to some extent, which situations they're best suited for.</p>
+        <p>Then practice.</p>
+        <p>Experiment.</p>
+        <p>Make mistakes.</p>
+        <p>Build experience.</p>
+        <p>And gradually develop your own way of working.</p>
+        <p>Because ultimately, <strong>it's not about how many tools you know. It's about how effectively you can use the tools you have to achieve your goals.</strong></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© <span data-year></span> Morteza Bashsiz</span>
+      <div class="foot-links">
+        <a class="icon-btn" data-email-link aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        </a>
+        <a class="icon-btn" data-github-link target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+        </a>
+        <a class="icon-btn" data-youtube-link target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+        </a>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/config.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>
