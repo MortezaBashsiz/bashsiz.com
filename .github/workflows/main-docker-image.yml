@@ -37,6 +37,8 @@ jobs:
           tags: latest ${{ steps.tag.outputs.tag }} ${{ github.sha }}
           containerfiles: |
             ./Dockerfile
+          build-args: |
+            VERSION=${{ github.sha }}
 
       - name: Push image
         uses: redhat-actions/push-to-registry@v2
