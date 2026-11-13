@@ -245,3 +245,11 @@ section { margin-top: 64px; }
 .prose h3 { margin-top: 36px; }
 
 .post-subtitle { font-size: 1.2rem; color: var(--muted); margin: -6px 0 14px; line-height: 1.45; }
+
+/* Theme toggle in the header (also kept in the footer) */
+.site-header .nav { margin-inline-start: auto; }
+.header-theme { flex-shrink: 0; margin-inline-start: 4px; }
+@media (max-width: 480px) {
+  .header-theme { width: 32px; height: 32px; margin-inline-start: 2px; }
+  .header-theme svg { width: 17px; height: 17px; }
+}
