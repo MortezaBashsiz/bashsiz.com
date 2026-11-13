@@ -188,10 +188,10 @@ section { margin-top: 64px; }
 @media (max-width: 480px) {
   body { font-size: 16px; }
   .wrap { padding-inline: 18px; }
-  .nav { gap: 0; flex-wrap: nowrap; min-width: 0; overflow-x: auto; scrollbar-width: none; }
-  .nav::-webkit-scrollbar { display: none; }
-  .nav a[href$="index.html"] { display: none; }
-  .nav a { padding: 6px 6px; font-size: 14px; white-space: nowrap; }
+  html:not(.js) .nav { gap: 0; flex-wrap: nowrap; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  html:not(.js) .nav::-webkit-scrollbar { display: none; }
+  html:not(.js) .nav a[href$="index.html"] { display: none; }
+  html:not(.js) .nav a { padding: 6px 6px; font-size: 14px; white-space: nowrap; }
   .avatar { width: 38px; height: 38px; font-size: 13px; flex-shrink: 0; }
   .site-header .wrap { gap: 8px; }
   section { margin-top: 52px; }
@@ -252,4 +252,25 @@ section { margin-top: 64px; }
 @media (max-width: 480px) {
   .header-theme { width: 32px; height: 32px; margin-inline-start: 2px; }
   .header-theme svg { width: 17px; height: 17px; }
+}
+
+/* ── Phone menu (☰) ───────────────────────────────────── */
+.menu-toggle { display: none; }
+.menu-toggle .menu-close { display: none; }
+@media (max-width: 640px) {
+  .js .site-header .wrap { position: relative; }
+  .js .menu-toggle { display: inline-grid; margin-inline-start: auto; }
+  .js .site-header .nav {
+    display: none; position: absolute; z-index: 30;
+    top: calc(100% - 14px); left: 16px; right: 16px; margin: 0;
+    flex-direction: column; gap: 2px; padding: 8px;
+    background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .12);
+  }
+  .js .site-header.menu-open .nav { display: flex; animation: menu-in .15s ease-out; }
+  .js .site-header .nav a { display: block; padding: 11px 14px; font-size: 16px; border-radius: 8px; }
+  .js .site-header .nav a[aria-current="page"] { background: var(--card-hover); }
+  .js .site-header.menu-open .menu-toggle .menu-open { display: none; }
+  .js .site-header.menu-open .menu-toggle .menu-close { display: block; }
+  @keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } }
 }

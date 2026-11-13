@@ -42,6 +42,20 @@
     })
   );
 
+  // ── Phone menu ────────────────────────────────────────
+  const header = $(".site-header");
+  const menuBtn = $(".menu-toggle");
+  if (header && menuBtn) {
+    const setMenu = (open) => {
+      header.classList.toggle("menu-open", open);
+      menuBtn.setAttribute("aria-expanded", String(open));
+    };
+    menuBtn.addEventListener("click", (e) => { e.stopPropagation(); setMenu(!header.classList.contains("menu-open")); });
+    document.addEventListener("click", (e) => { if (!header.contains(e.target)) setMenu(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+    $$(".nav a", header).forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  }
+
   // ── Helpers ───────────────────────────────────────────
   const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
   function ago(date) {
