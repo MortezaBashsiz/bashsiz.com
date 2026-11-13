@@ -17,6 +17,12 @@ window.SITE = {
   // To add one: copy an existing post in blog/, edit it, and add an entry here.
   posts: [
     {
+      url: "blog/bulshittropy.html",
+      title: "Bulshittropy",
+      date: "2026-11-13",
+      description: "On the drift toward absurdity and the erosion of authenticity — why meaning, like order, needs energy to survive.",
+    },
+    {
       url: "blog/ai-behind-a-human-face.html",
       title: "Don't Reply to a Human Face When an AI Is Behind the Conversation",
       date: "2026-11-13",

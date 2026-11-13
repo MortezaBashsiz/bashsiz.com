@@ -274,3 +274,10 @@ section { margin-top: 64px; }
   .js .site-header.menu-open .menu-toggle .menu-close { display: block; }
   @keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } }
 }
+
+/* Opening quote and section dividers in long posts */
+.prose .epigraph {
+  font-size: 1.15rem; font-style: italic; color: var(--muted); line-height: 1.6;
+  margin: 8px 0 28px; padding-inline-start: 20px; border-inline-start: 3px solid var(--line);
+}
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 40px 0; }
