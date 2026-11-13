@@ -17,6 +17,12 @@ window.SITE = {
   // To add one: copy an existing post in blog/, edit it, and add an entry here.
   posts: [
     {
+      url: "blog/ai-behind-a-human-face.html",
+      title: "Don't Reply to a Human Face When an AI Is Behind the Conversation",
+      date: "2026-11-13",
+      description: "The growing problem of AI impersonating human communication — and why transparency should be the minimum standard.",
+    },
+    {
       url: "blog/how-long-should-you-stay-at-a-company.html",
       title: "How Long Should You Stay at a Company?",
       date: "2026-11-13",

@@ -243,3 +243,5 @@ section { margin-top: 64px; }
 }
 .ratio-num { font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; min-width: 3.2ch; }
 .prose h3 { margin-top: 36px; }
+
+.post-subtitle { font-size: 1.2rem; color: var(--muted); margin: -6px 0 14px; line-height: 1.45; }
