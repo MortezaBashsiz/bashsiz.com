@@ -82,32 +82,5 @@ spec:
       port: 80
       targetPort: http
 
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    kubernetes.io/tls-acme: 'true'
-    # www.bashsiz.com -> bashsiz.com
-    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
-  name: bashsiz.com
-  namespace: production-bashsiz-com
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-      - bashsiz.com
-      - www.bashsiz.com
-    secretName: tls-bashsiz.com
-  rules:
-  - host: bashsiz.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: bashsiz-com
-            port:
-              number: 80
+# Routing (Gateway, HTTPRoutes, www -> apex redirect) and the TLS Secret are in
+# sudoer-net/infra, role kubeBashsiz (Envoy Gateway).
