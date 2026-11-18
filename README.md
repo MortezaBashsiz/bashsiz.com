@@ -34,8 +34,9 @@ docker.io/netsudoer/production-bashsiz-com:{latest,<unix-timestamp>,<git-sha>}
 
 ## Kubernetes
 
-`deploy/k8s/bashsiz-com.yaml` — Namespace, Deployment (2 replicas), Service and nginx Ingress
-for `bashsiz.com` / `www.bashsiz.com` (www redirects to the apex, TLS via `tls-acme`).
+`deploy/k8s/bashsiz-com.yaml` — Namespace, Deployment (2 replicas) and Service.
+Routing for `bashsiz.com` / `www.bashsiz.com` (Envoy Gateway, www redirects to
+the apex) and the TLS Secret are managed in the infra repository, role `kubeBashsiz`.
 
 The image is public on Docker Hub, so no image pull secret is needed.
 
