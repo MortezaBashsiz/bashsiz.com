@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>How We Scan Our Entire Infrastructure for CVEs — Morteza Bashsiz</title>
+  <meta name="description" content="A unified vulnerability monitoring system across Kubernetes, VMs, and containers — Trivy, CISA KEV, Prometheus, and actionable alerts.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='%2318181b'/><text x='32' y='41' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='600' font-size='24' fill='white'>MB</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>
+    // Theme: ?theme= from the link that opened this page → saved choice → system setting.
+    (function () {
+      var t, u = new URL(location.href), q = u.searchParams.get("theme");
+      if (q === "dark" || q === "light") {
+        t = q;
+        try { localStorage.setItem("theme", t); } catch (e) {}
+        u.searchParams.delete("theme");
+        try { history.replaceState(null, "", u.href); } catch (e) {}
+      }
+      if (!t) try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="avatar" href="../index.html" aria-label="Home"><img src="../assets/img/morteza-160.jpg" alt="Morteza Bashsiz" width="44" height="44"></a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="../index.html">Home</a>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <a href="../github.html">Projects</a>
+        <a href="../youtube.html">Videos</a>
+        <a href="../sudoer.html">Sudoer</a>
+        <a href="../about.html">About</a>
+      </nav>
+      <button class="icon-btn menu-toggle" type="button" aria-label="Menu" title="Menu" aria-expanded="false" aria-controls="site-nav">
+        <svg class="menu-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="menu-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <button class="icon-btn theme-toggle header-theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="content" class="wrap">
+
+    <article class="post">
+      <a class="back" href="../blog.html">← All posts</a>
+      <h1>How We Scan Our Entire Infrastructure for CVEs</h1>
+      <p class="post-subtitle">Building a unified vulnerability monitoring system across Kubernetes, virtual machines, and containers</p>
+      <p class="post-meta"><time datetime="2026-11-21">November 21, 2026</time> · 8 min read</p>
+
+      <div class="prose">
+        <p>One of the challenges of managing infrastructure is answering a seemingly simple question:</p>
+        <p><strong>“Is any software running in our infrastructure vulnerable?”</strong></p>
+        <p>The question sounds straightforward, but answering it becomes complicated when your infrastructure consists of multiple Kubernetes clusters, virtual machines, operating system packages, and standalone containers.</p>
+        <p>Traditional vulnerability scanners often generate thousands of findings, many of which are related to packages that are installed but never actually used. At the same time, vulnerabilities in running workloads can go unnoticed if images are only scanned during deployment.</p>
+        <p>We wanted a system that would continuously monitor our infrastructure, prioritize vulnerabilities based on real-world risk, and clearly distinguish between issues we can fix ourselves and those that depend on upstream vendors.</p>
+        <p>Instead of introducing an entirely new security platform, we built a unified vulnerability monitoring solution using open-source tools already present in our infrastructure.</p>
+        <p>Here is how it works.</p>
+
+        <h2>1. Scanning Kubernetes Workloads with Trivy Operator</h2>
+        <p>For our Kubernetes environments, we use <strong>Trivy Operator</strong>, deployed independently in each cluster.</p>
+        <p>Trivy Operator continuously discovers workloads and scans their container images for known vulnerabilities.</p>
+        <p>An important part of our configuration is daily rescanning.</p>
+        <p>A container image that was considered secure yesterday might contain a known vulnerability today, even if the image itself hasn't changed. New CVEs are published continuously, and vulnerability databases are updated accordingly.</p>
+        <p>By rescanning running workloads every day, we can detect newly disclosed vulnerabilities without waiting for a new deployment.</p>
+        <p>To avoid maintaining separate vulnerability databases in every scanning job, we use a shared <strong>Trivy Server</strong>.</p>
+        <p>The scanning jobs communicate with this server, which maintains the vulnerability database and performs the analysis using the image data provided by the clients.</p>
+        <p>This architecture centralizes database management and reduces unnecessary duplication across our clusters.</p>
+
+        <h2>2. Scanning Virtual Machines and Podman Containers</h2>
+        <p>Kubernetes is only part of our infrastructure.</p>
+        <p>We also operate traditional Linux servers and virtual machines, some of which run services such as Vault, Grafana, and Prometheus inside Podman containers.</p>
+        <p>To cover these environments, we deploy a daily Trivy scanning job on every host, scheduled through a <strong>systemd timer</strong>.</p>
+        <p>Each execution scans two areas:</p>
+        <ul>
+          <li>Operating system packages installed on the host.</li>
+          <li>Container images associated with currently running Podman containers.</li>
+        </ul>
+        <p>However, scanning every installed package creates a significant amount of noise.</p>
+        <p>For example, a Linux server might have hundreds of installed packages that are never used by any running service. Reporting vulnerabilities in all of them can make it difficult to identify the issues that actually matter.</p>
+        <p>To address this, we apply an additional filtering step to host package findings.</p>
+        <p>We retain vulnerabilities only when the affected package meets at least one of these conditions:</p>
+        <ul>
+          <li>It is loaded or used by a currently running process.</li>
+          <li>It belongs to the currently running Linux kernel.</li>
+          <li>It provides files with the setuid permission.</li>
+        </ul>
+        <p>Everything else is excluded from our operational vulnerability reports.</p>
+        <p>This approach significantly reduces unnecessary alerts and helps us focus on software that is actively involved in the operation of our infrastructure.</p>
+        <p>There is an important trade-off: runtime-based filtering is a prioritization strategy, not a guarantee that unused packages are harmless. Installed software may still become relevant later, and certain vulnerabilities may be exploitable without a package appearing in the current process inventory.</p>
+        <p>For that reason, we treat this filtered view as our operational risk dashboard rather than a complete inventory of every potentially vulnerable installed component.</p>
+
+        <h2>3. Prioritizing Real-World Threats with CISA KEV</h2>
+        <p>Not all CVEs represent the same level of risk.</p>
+        <p>A vulnerability with a Critical severity rating is important, but a vulnerability that attackers are already exploiting in the wild may require even more urgent attention.</p>
+        <p>To make this distinction, we integrate the <strong>CISA Known Exploited Vulnerabilities (KEV) Catalog</strong> into our monitoring pipeline.</p>
+        <p>Our system refreshes the KEV feed every six hours.</p>
+        <p>This allows us to identify CVEs with documented evidence of active exploitation and prioritize them accordingly.</p>
+        <p>Rather than relying exclusively on CVSS severity scores, we combine vulnerability severity with exploitation intelligence.</p>
+        <p>This gives us a more practical basis for deciding what needs to be fixed first.</p>
+
+        <h2>4. Centralizing Vulnerability Metrics in Prometheus</h2>
+        <p>One of our main architectural goals was to avoid building separate monitoring systems for Kubernetes and traditional Linux hosts.</p>
+        <p>We already use Prometheus extensively, so we decided to make it the central collection point for vulnerability information.</p>
+        <p>Trivy Operator exposes vulnerability-related metrics for Kubernetes workloads.</p>
+        <p>For Linux hosts, our daily scanning jobs convert their results into Prometheus metrics and publish them through the <strong>node exporter textfile collector</strong>.</p>
+        <p>We normalize these metrics to follow the same structure and labeling conventions as the Kubernetes vulnerability metrics.</p>
+        <p>As a result, Prometheus can process findings from both environments using a common set of queries and alerting rules.</p>
+        <p>This gives us a unified view across:</p>
+        <ul>
+          <li>Kubernetes workloads</li>
+          <li>Virtual machines and physical Linux hosts</li>
+          <li>Podman containers</li>
+          <li>Operating system packages</li>
+        </ul>
+        <p>The main benefit is simplicity.</p>
+        <p>Instead of maintaining different alerting logic for each environment, we have one consistent vulnerability monitoring pipeline.</p>
+
+        <h2>5. Actionable Alerts Instead of Endless CVE Notifications</h2>
+        <p>Finding vulnerabilities is only useful if the findings lead to action.</p>
+        <p>A common problem with vulnerability management systems is that they generate large numbers of alerts without clearly indicating who should act or how urgently the issue needs to be resolved.</p>
+        <p>We wanted our alerts to answer three questions:</p>
+        <p><strong>How urgent is this vulnerability? Can we fix it ourselves? What is the expected remediation deadline?</strong></p>
+        <p>We use Prometheus alerting rules and Alertmanager to classify and route findings according to our remediation policy.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Vulnerability category</th><th>Remediation target</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Known exploited vulnerability (CISA KEV)</td><td>Within 48 hours</td></tr>
+              <tr><td>Critical vulnerability with an available fix</td><td>Within 7 days</td></tr>
+              <tr><td>High-severity vulnerability</td><td>Within 30 days</td></tr>
+              <tr><td>Vulnerability in a third-party image</td><td>Separate upstream warning</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>These deadlines represent our internal operational targets rather than universal security standards.</p>
+        <p>The distinction between internally maintained and third-party images is particularly important.</p>
+        <p>When a vulnerability affects an image we build ourselves, we can usually update the base image, rebuild the application, and deploy a patched version.</p>
+        <p>However, when a vulnerability affects a third-party image, the remediation process may depend on the vendor publishing an updated release.</p>
+        <p>We classify these findings separately as <strong>upstream warnings</strong>.</p>
+        <p>This helps prevent vendor-dependent issues from being mixed with vulnerabilities that our own engineering team can immediately resolve.</p>
+        <p>Of course, an upstream dependency does not eliminate the risk. For serious issues, mitigation may still require configuration changes, isolation, disabling affected functionality, or temporarily replacing the component.</p>
+
+        <h2>6. Monitoring the Vulnerability Scanners Themselves</h2>
+        <p>One of the most important lessons in building this system was that <strong>a missing vulnerability alert does not necessarily mean the infrastructure is secure</strong>.</p>
+        <p>It might simply mean the scanner stopped working.</p>
+        <p>A vulnerability monitoring system needs to monitor its own health.</p>
+        <p>We therefore added alerting for several failure scenarios:</p>
+        <ul>
+          <li>A scheduled scan fails.</li>
+          <li>Scan results become stale.</li>
+          <li>A running image has never been scanned.</li>
+          <li>Expected vulnerability metrics stop appearing.</li>
+        </ul>
+        <p>These checks are essential because a failed scanner can otherwise create a false sense of security.</p>
+        <p>For example, if a host stops reporting scan results, its last known vulnerability count might remain unchanged or disappear from monitoring entirely.</p>
+        <p>Without freshness and coverage checks, this could incorrectly appear as a healthy system.</p>
+        <p>We explicitly distinguish between <strong>“no vulnerabilities detected”</strong> and <strong>“no valid scan results available.”</strong></p>
+        <p>That distinction is fundamental to trustworthy security monitoring.</p>
+
+        <h2>7. Automating Vulnerability Remediation</h2>
+        <p>Detection is only half of vulnerability management.</p>
+        <p>The other half is reducing the time between discovering a vulnerability and deploying a fix.</p>
+        <p>Where possible, we automate that process.</p>
+
+        <h3>Operating System Updates</h3>
+        <p>Our Linux hosts run a weekly maintenance job using:</p>
+        <pre><code>apt full-upgrade</code></pre>
+        <p>This keeps operating system packages updated and automatically applies available package upgrades.</p>
+        <p>Depending on the update, additional actions such as service restarts or system reboots may still be necessary.</p>
+
+        <h3>Container Image Rebuilds</h3>
+        <p>For database container images that we maintain ourselves, we use CI pipelines to automate the rebuild process.</p>
+        <p>A rebuild can be triggered when:</p>
+        <ul>
+          <li>The underlying base image changes.</li>
+          <li>A fix becomes available for a vulnerability affecting the image.</li>
+        </ul>
+        <p>The pipeline builds an updated image and opens a Pull Request for review.</p>
+        <p>This allows us to automate repetitive maintenance tasks while keeping changes visible and reviewable before deployment.</p>
+        <p>It also creates a clear connection between vulnerability detection and remediation.</p>
+
+        <h2>8. What This Architecture Gives Us</h2>
+        <p>The biggest improvement is not simply that we can detect more CVEs.</p>
+        <p>It is that we can make better decisions about the vulnerabilities we detect.</p>
+        <p>By combining Trivy Operator, host-level scanning, CISA KEV, Prometheus, Alertmanager, and CI automation, we have built a consistent process for vulnerability management across different infrastructure environments.</p>
+        <p>The system provides several practical benefits.</p>
+        <ul>
+          <li><strong>Continuous visibility:</strong> Running Kubernetes workloads and host environments are scanned regularly, even when the deployed software hasn't changed.</li>
+          <li><strong>Reduced alert noise:</strong> Host package findings are filtered according to runtime relevance, helping us focus on the most actionable vulnerabilities.</li>
+          <li><strong>Risk-based prioritization:</strong> Known exploited vulnerabilities receive higher priority than findings based solely on severity.</li>
+          <li><strong>Unified monitoring:</strong> Kubernetes and non-Kubernetes environments use the same metrics and alerting infrastructure.</li>
+          <li><strong>Scanner reliability:</strong> Failed, stale, or missing scans generate alerts rather than silently disappearing.</li>
+          <li><strong>Clear remediation ownership:</strong> Vulnerabilities we can fix ourselves are distinguished from issues that depend on upstream vendors.</li>
+          <li><strong>Automation:</strong> Routine package upgrades and container image rebuilds reduce manual effort and shorten the remediation process.</li>
+        </ul>
+
+        <hr>
+
+        <h2>Final Thoughts</h2>
+        <p>Vulnerability management is not just about finding as many CVEs as possible.</p>
+        <p>A scanner that reports thousands of vulnerabilities without meaningful prioritization can easily overwhelm an engineering team.</p>
+        <p>Our goal was to build something more practical: a system that continuously monitors the software we operate, identifies vulnerabilities that deserve attention, and helps us understand what action to take.</p>
+        <p>We also learned that vulnerability monitoring needs to account for its own reliability. An incomplete scan, an outdated report, or a missing workload can be just as important to investigate as an actual CVE finding.</p>
+        <p>There is no single scanner that can guarantee complete security coverage, and runtime-focused filtering does not replace broader vulnerability assessments.</p>
+        <p>But combining continuous scanning, exploitation intelligence, actionable alerting, and automated remediation gives us a much clearer picture of the risks across our infrastructure.</p>
+        <blockquote>Ultimately, the goal is not to collect more vulnerability reports. It is to identify meaningful risks, understand who can fix them, and reduce the time they remain exposed.</blockquote>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© <span data-year></span> Morteza Bashsiz</span>
+      <div class="foot-links">
+        <a class="icon-btn" data-email-link aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        </a>
+        <a class="icon-btn" data-github-link target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+        </a>
+        <a class="icon-btn" data-youtube-link target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+        </a>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/config.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

@@ -17,6 +17,12 @@ window.SITE = {
   // To add one: copy an existing post in blog/, edit it, and add an entry here.
   posts: [
     {
+      url: "blog/how-we-scan-our-infrastructure-for-cves.html",
+      title: "How We Scan Our Entire Infrastructure for CVEs",
+      date: "2026-11-21",
+      description: "A unified vulnerability monitoring system across Kubernetes, VMs, and containers — Trivy, CISA KEV, Prometheus, and actionable alerts.",
+    },
+    {
       url: "blog/bulshittropy.html",
       title: "Bulshittropy",
       date: "2026-11-13",
