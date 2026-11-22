@@ -17,6 +17,12 @@ window.SITE = {
   // To add one: copy an existing post in blog/, edit it, and add an entry here.
   posts: [
     {
+      url: "blog/when-ai-thinks-for-us.html",
+      title: "When AI Thinks for Us: Are We Making Our Brains Lazy?",
+      date: "2026-11-22",
+      description: "Cognitive offloading, the illusion of learning, and how to use AI without outsourcing your ability to think.",
+    },
+    {
       url: "blog/how-we-scan-our-infrastructure-for-cves.html",
       title: "How We Scan Our Entire Infrastructure for CVEs",
       date: "2026-11-21",

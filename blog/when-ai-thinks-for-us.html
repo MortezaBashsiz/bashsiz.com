@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>When AI Thinks for Us — Morteza Bashsiz</title>
+  <meta name="description" content="Cognitive offloading, the illusion of learning, and how to use AI without outsourcing your ability to think.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='%2318181b'/><text x='32' y='41' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='600' font-size='24' fill='white'>MB</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>
+    // Theme: ?theme= from the link that opened this page → saved choice → system setting.
+    (function () {
+      var t, u = new URL(location.href), q = u.searchParams.get("theme");
+      if (q === "dark" || q === "light") {
+        t = q;
+        try { localStorage.setItem("theme", t); } catch (e) {}
+        u.searchParams.delete("theme");
+        try { history.replaceState(null, "", u.href); } catch (e) {}
+      }
+      if (!t) try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="avatar" href="../index.html" aria-label="Home"><img src="../assets/img/morteza-160.jpg" alt="Morteza Bashsiz" width="44" height="44"></a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="../index.html">Home</a>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <a href="../github.html">Projects</a>
+        <a href="../youtube.html">Videos</a>
+        <a href="../sudoer.html">Sudoer</a>
+        <a href="../about.html">About</a>
+      </nav>
+      <button class="icon-btn menu-toggle" type="button" aria-label="Menu" title="Menu" aria-expanded="false" aria-controls="site-nav">
+        <svg class="menu-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="menu-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <button class="icon-btn theme-toggle header-theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="content" class="wrap">
+
+    <article class="post">
+      <a class="back" href="../blog.html">← All posts</a>
+      <h1>When AI Thinks for Us: Are We Making Our Brains Lazy?</h1>
+      <p class="post-subtitle">The hidden risks of blindly relying on artificial intelligence and the future of independent thinking</p>
+      <p class="post-meta"><time datetime="2026-11-22">November 22, 2026</time> · 9 min read</p>
+
+      <div class="prose">
+        <p class="lead">Imagine you need to write an email. Instead of spending a few minutes thinking about what to say, you ask AI to write it for you.</p>
+        <p>You encounter a problem? You give it to ChatGPT, and within seconds, you have an answer.</p>
+        <p>You want to learn something new? Rather than reading, researching, and struggling to understand the subject, you ask AI to summarize everything for you.</p>
+        <p>So far, nothing seems particularly wrong. Tasks get completed faster, we save time, and we might even produce better results.</p>
+        <p>But there is an important question we should be asking:</p>
+        <p><strong>What happens to our ability to think when, every time we encounter a problem, we turn to AI before attempting to solve it ourselves?</strong></p>
+
+        <h2>Cognitive Offloading: When We Outsource Our Thinking</h2>
+        <p>In cognitive psychology, there is a concept called <em>cognitive offloading</em>.</p>
+        <p>It describes how humans reduce mental effort by transferring certain cognitive tasks to external tools.</p>
+        <p>This behavior is nothing new. Since the invention of writing, we have no longer needed to memorize everything. Calculators reduced the need for complex mental arithmetic, and search engines made accessing information dramatically easier.</p>
+        <p>But generative AI introduces a fundamental difference.</p>
+        <p>Previous tools primarily helped us store, retrieve, or process information. Generative AI can now perform parts of the reasoning, analysis, writing, and even decision-making processes on our behalf.</p>
+        <p>In other words, <strong>we are no longer outsourcing only our memory. Sometimes, we are outsourcing the thinking process itself.</strong></p>
+        <p>This is not necessarily a bad thing. Cognitive offloading can free up mental resources for more important tasks.</p>
+        <p>The problem begins when this delegation changes from a conscious decision into a permanent dependency.</p>
+
+        <h2>The Illusion of Learning: When We Understand the Answer but Not the Problem</h2>
+        <p>One of the risks of excessive AI use is the illusion of learning.</p>
+        <p>Imagine a software developer encounters a bug.</p>
+        <p>Instead of investigating logs, reading documentation, and analyzing the root cause, the developer gives the problem to AI.</p>
+        <p>AI provides a solution. The developer copies the code, and the problem disappears.</p>
+        <p>But did the developer actually learn anything?</p>
+        <p>Perhaps. But not necessarily.</p>
+        <p>If they cannot explain what caused the problem, why the solution works, or how to approach a similar issue in the future, they may have solved the immediate problem without developing the skill required to solve it independently.</p>
+        <p>This distinction matters.</p>
+        <blockquote>Successfully completing a task does not necessarily mean we have learned how to perform it.</blockquote>
+        <p>Learning involves struggling to understand, making mistakes, testing hypotheses, and correcting our assumptions.</p>
+        <p>If AI consistently performs these steps for us, we may produce better results while losing opportunities to practice the skills needed to achieve them.</p>
+
+        <h2>What Does Scientific Research Tell Us?</h2>
+        <p>These concerns are not purely philosophical. Researchers are increasingly investigating how generative AI affects critical thinking, cognitive engagement, and learning.</p>
+        <p>A 2025 study conducted by researchers from Microsoft Research and Carnegie Mellon University examined the experiences of 319 knowledge workers.</p>
+        <p>The researchers found that participants who reported greater confidence in AI's capabilities also tended to report less critical-thinking effort when using AI-assisted tools.</p>
+        <p>Conversely, participants with greater confidence in their own abilities reported engaging in more critical thinking.</p>
+        <p>Interestingly, AI did not necessarily eliminate critical thinking. Instead, it appeared to shift its nature: from gathering information to verifying it, and from directly solving problems to evaluating and integrating AI-generated responses.</p>
+        <p>However, this study relied on self-reported experiences. It does not establish that AI use causes permanent declines in critical-thinking ability.</p>
+        <p>Another 2025 study from MIT Media Lab, titled <em>Your Brain on ChatGPT</em>, investigated brain activity during essay-writing tasks.</p>
+        <p>Participants were divided into three groups: those writing without external tools, those using search engines, and those using ChatGPT.</p>
+        <p>The researchers observed weaker patterns of neural connectivity, measured through EEG, among participants using ChatGPT. They also reported differences in certain outcomes, including participants' ability to recall their writing and their sense of ownership over the resulting text.</p>
+        <p>However, this was a preliminary study with a relatively small sample and a specific focus on essay writing.</p>
+        <p>Its findings do not demonstrate that AI causes brain damage or reduces intelligence.</p>
+        <p>What these studies suggest is an important possibility:</p>
+        <p><strong>The way we use AI may influence how deeply we engage with information and how effectively we learn.</strong></p>
+
+        <h2>The Real Danger: Getting Used to Not Thinking</h2>
+        <p>I believe the greatest danger of AI is not that it sometimes gives incorrect answers.</p>
+        <p>We can investigate and correct an incorrect answer, provided we still have the ability and motivation to question it.</p>
+        <p>The greater danger begins when we gradually become accustomed to not thinking independently, even when dealing with relatively simple problems.</p>
+        <p>Imagine someone who relies on AI to write every message, analyze every topic, make every decision, and solve every problem.</p>
+        <p>In the short term, this person might appear significantly more productive.</p>
+        <p>But what happens in the long term if they rarely practice writing, analyzing, reasoning, or making independent decisions?</p>
+        <p>This concern can be understood through the idea of <em>cognitive dependency</em>: becoming excessively reliant on external tools for mental activities.</p>
+        <p>The issue is not that the brain literally deteriorates like an unused muscle. Human cognition is far more complex than that analogy suggests.</p>
+        <p>Rather, cognitive skills require practice, feedback, and active engagement to develop and remain effective.</p>
+        <p>If we always receive ready-made answers, we may have fewer opportunities to strengthen those skills.</p>
+
+        <h2>When We Confuse Speed with Intelligence</h2>
+        <p>AI can generate text in seconds that might take a human hours to write.</p>
+        <p>But does completing something faster necessarily mean doing it better?</p>
+        <p>Imagine two students researching the same topic.</p>
+        <p>The first student spends several hours reading, comparing sources, misunderstanding certain concepts, revisiting the material, and eventually writing an essay.</p>
+        <p>The second student gives the topic to AI and receives a well-structured, professional-looking essay within minutes.</p>
+        <p>The second student's essay might even be better in terms of grammar, organization, and presentation.</p>
+        <p>But if both students are asked the following day to explain the subject without assistance, the second student will not necessarily demonstrate a deeper understanding.</p>
+        <p>We need to distinguish between <strong>the quality of the output and the quality of the learning process</strong>.</p>
+        <p>AI can improve the quality of what we produce without necessarily improving our underlying knowledge or abilities.</p>
+        <p>This distinction is particularly important in education, software development, research, and other fields where developing expertise matters as much as producing immediate results.</p>
+
+        <h2>Should We Limit Our Use of AI?</h2>
+        <p>I do not believe the answer is to abandon AI.</p>
+        <p>Just as the invention of calculators did not mean we should stop learning mathematics, the emergence of AI should not mean abandoning independent thinking.</p>
+        <p>The real question is how we use it.</p>
+        <p>AI can be an extraordinary teacher when it helps us discover answers rather than immediately providing them.</p>
+        <p>It can be a valuable collaborator when it challenges our ideas, identifies weaknesses in our reasoning, and introduces alternative perspectives.</p>
+        <p>It can even encourage deeper learning when we use it to ask better questions and test our own hypotheses.</p>
+        <p>Consider the difference between these two requests:</p>
+        <p><em>"Solve this problem for me."</em></p>
+        <p>And:</p>
+        <p><em>"Here is how I approached this problem. Identify the weaknesses in my reasoning, but don't give me the final answer."</em></p>
+        <p>In the first case, AI may replace our thinking.</p>
+        <p>In the second, it becomes a tool for strengthening it.</p>
+        <blockquote>The difference is not the technology itself, but the role we allow it to play in our thinking process.</blockquote>
+
+        <h2>How Can We Use AI Without Becoming Dependent on It?</h2>
+        <p>A few simple habits can make a meaningful difference.</p>
+
+        <h3>Think before asking</h3>
+        <p>Before turning to AI, spend a few minutes analyzing the problem yourself. Even if your initial reasoning is incorrect, the effort can be a valuable part of learning.</p>
+
+        <h3>Ask for explanations, not just answers</h3>
+        <p>Instead of requesting an immediate solution, ask AI to explain the underlying concepts or guide you through the problem step by step.</p>
+
+        <h3>Challenge the responses</h3>
+        <p>Ask AI to present opposing arguments, examine assumptions, and identify weaknesses in its own conclusions.</p>
+
+        <h3>Practice working without AI</h3>
+        <p>Occasionally write, code, analyze, and solve problems without assistance. This gives you opportunities to evaluate and maintain your independent abilities.</p>
+
+        <h3>Distinguish productivity from learning</h3>
+        <p>If your goal is simply to complete a repetitive task, automation makes sense.</p>
+        <p>But if your goal is to develop a skill, eliminating all mental effort may work against that objective.</p>
+        <p>The point is not to make every task unnecessarily difficult. It is to recognize when effort itself is part of what makes the task valuable.</p>
+
+        <h2>The Future Belongs to Those Who Can Still Think</h2>
+        <p>In the coming years, AI will likely take on an increasingly significant role in our daily activities.</p>
+        <p>Writing, programming, data analysis, research, and many other tasks that currently require human expertise will become increasingly supported by artificial intelligence.</p>
+        <p>But in such a world, the ability to ask meaningful questions, recognize incorrect answers, evaluate evidence, and make independent decisions will not lose its importance.</p>
+        <p>It may become even more valuable.</p>
+        <p>When generating answers becomes easy and inexpensive, distinguishing accurate reasoning from convincing but flawed explanations becomes an essential skill.</p>
+        <p>AI should expand our capabilities, not make us feel that using them is unnecessary.</p>
+        <p><strong>Perhaps the greatest danger of artificial intelligence is not that it will one day become smarter than humans, but that humans, surrounded by systems always ready to provide answers, may gradually lose the motivation to question, doubt, and think independently.</strong></p>
+        <p>And perhaps the most important skill we need to preserve in the age of AI is precisely this:</p>
+        <blockquote>The ability to think, even when we no longer have to.</blockquote>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© <span data-year></span> Morteza Bashsiz</span>
+      <div class="foot-links">
+        <a class="icon-btn" data-email-link aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        </a>
+        <a class="icon-btn" data-github-link target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+        </a>
+        <a class="icon-btn" data-youtube-link target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+        </a>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/config.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>
