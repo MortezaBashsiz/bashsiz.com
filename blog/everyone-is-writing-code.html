@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Everyone Is Writing Code, But Who's Still Contributing? — Morteza Bashsiz</title>
+  <meta name="description" content="When building from scratch with AI becomes easier than contributing, what happens to collaboration in open source?">
+  <link rel="alternate" hreflang="fa" href="../fa/blog/everyone-is-writing-code.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='%2318181b'/><text x='32' y='41' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='600' font-size='24' fill='white'>MB</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>
+    // Theme: ?theme= from the link that opened this page → saved choice → system setting.
+    (function () {
+      var t, u = new URL(location.href), q = u.searchParams.get("theme");
+      if (q === "dark" || q === "light") {
+        t = q;
+        try { localStorage.setItem("theme", t); } catch (e) {}
+        u.searchParams.delete("theme");
+        try { history.replaceState(null, "", u.href); } catch (e) {}
+      }
+      if (!t) try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "dark" && t !== "light") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="avatar" href="../index.html" aria-label="Home"><img src="../assets/img/morteza-160.jpg" alt="Morteza Bashsiz" width="44" height="44"></a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="../index.html">Home</a>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <a href="../github.html">Projects</a>
+        <a href="../youtube.html">Videos</a>
+        <a href="../sudoer.html">Sudoer</a>
+        <a href="../about.html">About</a>
+      </nav>
+      <button class="icon-btn menu-toggle" type="button" aria-label="Menu" title="Menu" aria-expanded="false" aria-controls="site-nav">
+        <svg class="menu-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="menu-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <a class="language-link" href="../fa/blog/everyone-is-writing-code.html" lang="fa" hreflang="fa">فارسی</a>
+      <button class="icon-btn theme-toggle header-theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="content" class="wrap">
+
+    <article class="post">
+      <a class="back" href="../blog.html">← All posts</a>
+      <h1>Everyone Is Writing Code, But Who's Still Contributing?</h1>
+      <p class="post-subtitle">The Strange Paradox of AI in Open Source</p>
+      <p class="post-meta"><time datetime="2026-11-23">November 23, 2026</time> · 6 min read</p>
+
+      <div class="prose">
+        <p class="lead">Just a few years ago, when a developer had an idea, one of the first things they'd usually do was search GitHub for similar projects.</p>
+        <p>Maybe they wanted to build an HTTP server, a JSON library, or a simple file management tool.</p>
+        <p>They'd search around, explore existing projects, read the documentation, and if they found something close to what they needed, they'd try to use it.</p>
+        <p>If something was missing, they might open an issue, submit a pull request, or even start a discussion with the maintainer.</p>
+        <p>Of course, it wasn't always like that. Plenty of developers preferred reinventing the wheel even back then! But there was one important barrier: <strong>building software from scratch took a lot of time and effort.</strong></p>
+        <p>That cost often made contributing to an existing project more practical than starting a new one.</p>
+        <p>But what about today?</p>
+        <p>Now, you can simply describe your idea to ChatGPT, Claude, or another AI coding tool, and within minutes, you've got the foundation of a new project.</p>
+        <p>Something that might have taken days or weeks can now turn into a working prototype in just a few hours.</p>
+        <p>And that's where something interesting starts happening.</p>
+        <p><strong>We're producing more software than ever, but are we still collaborating as much as we used to?</strong></p>
+
+        <h2>From Contribution to Independent Creation</h2>
+        <p>Imagine there's an open-source project that already solves 80% of your problem.</p>
+        <p>In the past, you'd probably consider adding the missing 20%.</p>
+        <p>Sure, it might take some time to understand the codebase, learn the architecture, and make your changes fit the project's standards.</p>
+        <p>But in the end, you'd solve your own problem while also improving something that other people could benefit from.</p>
+        <p>Now imagine the same situation with AI.</p>
+        <p>Instead of spending hours reading someone else's code, you can simply tell an AI:</p>
+        <p><em>"Build me a library that does these things."</em></p>
+        <p>And pretty quickly, you'll probably have something that, at least on the surface, gets the job done.</p>
+        <p>You don't need to understand someone else's architecture, wait for a pull request to be reviewed, or debate technical decisions with a maintainer.</p>
+        <p>Everything works the way you want it to.</p>
+        <p>And that's exactly where this convenience might create a bigger problem.</p>
+        <p><strong>When building from scratch becomes easier than contributing, the motivation to collaborate starts to fade.</strong></p>
+
+        <h2>100 Developers, 100 Similar Projects</h2>
+        <p>Imagine 100 developers who all need the same kind of tool.</p>
+        <p>In a more collaborative model, many of them might gather around a handful of existing projects.</p>
+        <p>One fixes bugs, another improves documentation, someone adds tests, and someone else implements new features.</p>
+        <p>Eventually, you end up with a few relatively strong projects maintained by a community of developers.</p>
+        <p>But in today's AI-driven world, each of those 100 developers can build their own version.</p>
+        <p>The result?</p>
+        <p>100 GitHub repositories, 100 README files, 100 different architectures, and probably 100 projects doing more or less the same thing.</p>
+        <p>At first glance, that sounds amazing.</p>
+        <p>More projects, more code, and more people capable of turning their ideas into reality.</p>
+        <p>But there's an important question:</p>
+        <p><strong>Have we actually made 100 times more progress, or have we just solved the same problem 100 different times?</strong></p>
+        <p>This is where we need to distinguish between production and progress.</p>
+        <p>More repositories don't necessarily mean a healthier software ecosystem.</p>
+        <p>Sometimes, one project maintained by 100 developers is far more valuable than 100 projects maintained by one developer each.</p>
+        <p>Of course, that's not always the case. Independent projects can introduce fresh ideas, different architectures, and even better solutions.</p>
+        <p>The problem begins when independence becomes the default choice, not because it leads to innovation, but simply because AI makes it so easy.</p>
+
+        <h2>What AI Still Hasn't Replaced</h2>
+        <p>Open source has never been just about writing code.</p>
+        <p>A huge part of its value comes from people interacting with each other.</p>
+        <p>When we contribute to an existing project, we're forced to read someone else's code, understand their technical decisions, and sometimes accept that our own approach isn't necessarily the best one.</p>
+        <p>We learn how to discuss software design, defend our choices, accept criticism, and work with people who might see things completely differently.</p>
+        <p>Sometimes, a good code review teaches us more than several days of coding.</p>
+        <p>AI can generate code, explain it, and even suggest useful improvements.</p>
+        <p>But collaborating in open source isn't just about solving technical problems.</p>
+        <p>It's also a social exercise.</p>
+        <p>It's about listening, giving feedback, accepting feedback, finding common ground, and building something that doesn't belong to just one person.</p>
+        <p>If we gradually start choosing to work only with AI instead of working with other developers, we might lose part of that culture.</p>
+
+        <h2>The Maintenance Problem: Building Is Easy, Keeping It Alive Isn't</h2>
+        <p>There's another issue that doesn't get nearly enough attention.</p>
+        <p>AI has made it much easier to build the first version of a project, but maintaining it is still hard work.</p>
+        <p>A real project isn't just a few thousand lines of code.</p>
+        <p>Bugs need fixing, dependencies need updating, security issues need investigating, tests need maintaining, and new changes shouldn't break existing functionality.</p>
+        <p>Now imagine thousands of similar projects, each maintained by a single developer.</p>
+        <p>Many of them might be abandoned after a few weeks or months.</p>
+        <p>Meanwhile, if some of that same energy had gone into improving existing projects, we might have ended up with more stable and reliable software.</p>
+        <p><strong>AI has lowered the cost of starting a project, but it hasn't necessarily lowered the cost of taking responsibility for it in the long run.</strong></p>
+
+        <h2>But Do the Numbers Actually Support This?</h2>
+        <p>Here's where we need to be careful.</p>
+        <p>The fact that more repositories are being created or more code is being generated doesn't automatically mean open-source participation is declining.</p>
+        <p>In fact, the number of pull requests might also be increasing, simply because AI helps developers write code faster.</p>
+        <p>But what I think is really worth investigating is the ratio between contribution and independent creation.</p>
+        <p>Compared to a few years ago, how much developer activity goes into creating new repositories, and how much goes into improving someone else's work?</p>
+        <p>How many new projects are genuinely innovative, and how many are just slightly different versions of tools that already exist?</p>
+        <p>And perhaps most importantly, do developers still spend as much time looking for existing solutions before starting something new?</p>
+        <p>To answer these questions properly, we'd need real GitHub data and a comparison of trends over several years.</p>
+        <p>So we can't confidently say that collaboration has declined.</p>
+        <p>But we can raise an interesting hypothesis:</p>
+        <p><strong>Maybe AI is increasing the speed of software production faster than it's increasing collaboration between developers.</strong></p>
+        <p>And if that's true, we're looking at a significant shift in programming culture.</p>
+
+        <h2>Maybe AI Isn't the Problem. Maybe It's How We Choose to Use It.</h2>
+        <p>I'm not saying AI is bad or that we should stop using it.</p>
+        <p>Quite the opposite.</p>
+        <p>I think it's one of the most positive developments in the history of software engineering.</p>
+        <p>AI has made it possible for more people to bring their ideas to life, automate repetitive tasks, and spend more time solving complex problems.</p>
+        <p>It can even make contributing to open source easier.</p>
+        <p>For example, we can use AI to explain the architecture of a large project, analyze an issue, write tests for a bug, or help prepare our first pull request.</p>
+        <p>So the same technology that makes building an independent project easier can also make contributing to existing projects easier.</p>
+        <p>The real question is how we choose to use that power.</p>
+        <p>Do we use it to rebuild everything from scratch, every single time?</p>
+        <p>Or do we use it to improve what others have already built?</p>
+
+        <h2>Final Thoughts</h2>
+        <p>For years, one of the most important things about open source was that people with different backgrounds, experiences, and skills worked together to solve shared problems.</p>
+        <p>Someone started a project, and others helped make it better.</p>
+        <p>Now AI has made it possible for almost anyone to start a project from scratch, often entirely on their own.</p>
+        <p>That's a huge achievement.</p>
+        <p>But it might come with a hidden cost.</p>
+        <p>We could gradually end up in a world where everyone is a creator, but fewer people are willing to spend their time improving someone else's work.</p>
+        <p>A world full of new repositories, but with smaller communities and less collaboration.</p>
+        <p>I believe the future of open source doesn't depend only on how good AI becomes at writing code.</p>
+        <p>It also depends on how willing we are to keep writing code together.</p>
+        <p><strong>Because maybe the biggest threat AI poses to open source isn't that it will replace developers.</strong></p>
+        <p><strong>It's that developers might stop needing each other.</strong></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© <span data-year></span> Morteza Bashsiz</span>
+      <div class="foot-links">
+        <a class="icon-btn" data-email-link aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        </a>
+        <a class="icon-btn" data-github-link target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+        </a>
+        <a class="icon-btn" data-youtube-link target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+        </a>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/config.js"></script>
+  <script src="../assets/main.js"></script>
+</body>
+</html>

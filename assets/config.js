@@ -17,6 +17,13 @@ window.SITE = {
   // To add one: copy an existing post in blog/, edit it, and add an entry here.
   posts: [
     {
+      url: "blog/everyone-is-writing-code.html",
+      title: "Everyone Is Writing Code, But Who's Still Contributing?",
+      date: "2026-11-23",
+      description: "When building from scratch with AI becomes easier than contributing, what happens to collaboration in open source?",
+      fa: {"title": "همه دارن کد می‌زنن، ولی کی داره مشارکت می‌کنه؟", "description": "وقتی ساختن یه پروژه از صفر با هوش مصنوعی از مشارکت توی پروژه‌های دیگران آسون‌تر می‌شه، چه بلایی سر همکاری توی Open Source میاد؟"},
+    },
+    {
       url: "blog/when-ai-thinks-for-us.html",
       title: "When AI Thinks for Us: Are We Making Our Brains Lazy?",
       date: "2026-11-22",
