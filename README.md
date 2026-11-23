@@ -4,6 +4,7 @@ Personal website of Morteza Bashsiz — a static site (HTML/CSS/JS, no build ste
 
 - Site settings, blog post list and videos: `assets/config.js`
 - New blog post: copy a file in `blog/`, edit it, and add it to `posts` in `assets/config.js`
+- Farsi pages live in `fa/`. To add a Farsi article, create its translated page under `fa/blog/`, add `fa: { title, description }` to the post entry, and link both versions using the language switcher and `hreflang` alternate links. Posts without a Farsi entry link to the English original.
 
 ## Run locally
 

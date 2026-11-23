@@ -12,6 +12,7 @@ COPY deploy/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --chown=101:101 index.html blog.html github.html youtube.html sudoer.html about.html /usr/share/nginx/html/
 COPY --chown=101:101 assets/ /usr/share/nginx/html/assets/
 COPY --chown=101:101 blog/   /usr/share/nginx/html/blog/
+COPY --chown=101:101 fa/     /usr/share/nginx/html/fa/
 
 # Cache-bust: assets/style.css -> assets/style.css?v=<VERSION> (same for .js)
 USER root
